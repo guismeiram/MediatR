@@ -56,10 +56,26 @@ namespace infra.Repository.Base
 
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
-            _dbContext.Update(entity);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                var result = await _dbContext.Set<T>().SingleOrDefaultAsync(x => x.Id == entity.Id);
+                if (result == null)
+                    return null;
+
+                entity.UpdatedAt = DateTime.UtcNow;
+                entity.CreatedAt = result.CreatedAt;
+
+                _dbContext.Entry(result).State = EntityState.Detached;
+                _dbContext.Set<T>().Update(entity);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+
+            return entity;
         }
     }
 }

@@ -35,13 +35,20 @@ namespace infra.Repository.Base
             return entity;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            var entity = GetByIdAsync(id);
-            if (entity != null)
+            try
             {
-                _dbContext.Remove(entity);
-                await _dbContext.SaveChangesAsync();
+                var entity = await _dbContext.Set<T>().SingleOrDefaultAsync(x => x.Id == id);
+                if (entity == null)
+                    return false;
+
+                var result = _dbContext.Set<T>().Remove(entity);
+                return true;
+            }
+            catch (System.Exception)
+            {
+                throw;
             }
         }
 

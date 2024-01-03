@@ -1,8 +1,10 @@
 ﻿using api.Controller;
 using application.Common.Models;
 using application.Paciente.Command.CreatePaciente;
+using application.Paciente.Command.DeletePaciente;
 using application.Paciente.Command.UpdatePaciente;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace api.V1.Controller
@@ -27,7 +29,13 @@ namespace api.V1.Controller
             return HandleResult(result);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var product = await Mediator.Send(new DeletePacienteCommand.Command { Id = id });
 
+            return HandleResult(product);
+        }
 
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,6 +53,13 @@ namespace infra.Repository.Base
             }
         }
 
+        public async Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate)
+            => await _dbContext.Set<T>().Where(predicate).ToListAsync();
+
+        public IQueryable<T> AsQueryable(Expression<Func<T, bool>> predicate = null)
+            => predicate == null ? _dbContext.Set<T>().AsQueryable() : _dbContext.Set<T>().Where(predicate).AsQueryable();
+
+
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
@@ -60,7 +68,6 @@ namespace infra.Repository.Base
         public async Task<T> GetByIdAsync(Guid id)
         {
             return await _dbContext.Set<T>().FirstOrDefaultAsync(c => c.Id == id);
-
         }
 
         public async Task<T> UpdateAsync(T entity)

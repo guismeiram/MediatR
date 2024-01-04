@@ -3,6 +3,7 @@ using application.Common.Models;
 using application.Paciente.Command.CreatePaciente;
 using application.Paciente.Command.DeletePaciente;
 using application.Paciente.Command.UpdatePaciente;
+using application.Paciente.Queries.GetPaciente;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -35,6 +36,14 @@ namespace api.V1.Controller
             var product = await Mediator.Send(new DeletePacienteCommand.Command { Id = id });
 
             return HandleResult(product);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var result = await Mediator.Send(new GetPacienteQuery.Query { Id = id});
+
+            return HandleResult(result);
         }
 
     }

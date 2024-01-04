@@ -1,6 +1,7 @@
 ﻿using application.Common.Interfaces;
 using application.Common.Models;
 using AutoMapper;
+using FluentResults;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -37,9 +38,7 @@ namespace application.Paciente.Command.UpdatePaciente
 
                 var result = await _uow.Complete();
 
-                if (result) return Result<Unit>.Success(Unit.Value);
-
-                return Result<Unit>.Failure("Failed to update paciente");
+                
             }
         }
     }

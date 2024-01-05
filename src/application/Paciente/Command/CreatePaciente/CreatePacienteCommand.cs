@@ -1,14 +1,9 @@
-﻿using application.Common.Interfaces;
+﻿
+
+using application.Common.Interfaces;
 using application.Common.Models;
 using AutoMapper;
-using domain.Enums;
-using FluentResults;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -42,9 +37,11 @@ namespace application.Paciente.Command.CreatePaciente
 
                 var result = await _uow.Complete();
 
+                if (result) return Result<Unit>.Success(Unit.Value);
 
-                return Result.Ok(pacienteRecebe);
+                return Result<Unit>.Failure("Failed to create a new tarefa");
             }
+
         }
         
     }

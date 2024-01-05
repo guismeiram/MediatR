@@ -4,36 +4,42 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 using Newtonsoft.Json;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
 using OkResult = Microsoft.AspNetCore.Mvc.OkResult;
 
 namespace application.Common.Models
 {
-    public class ResultFilter : IAsyncResultFilter
+    public class Result<T>
     {
-        private sealed class Response
-        {
-            public object Value { get; set; }
-            public bool IsSuccess { get; set; }
-            public bool IsFailed { get; set; }
+        public HttpStatusCode StatusCode { get; }
 
-            public string[] Errors { get; set; } = new string[] { };
+        public bool Sucess { get; }
+        public string ErrorMessage { get; }
+        public T Data { get; }
+
+        public Result(HttpStatusCode statusCode)
+        {
+            StatusCode = statusCode;
         }
 
-        public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
+        private Result(bool success, string errorMessage, T data, HttpStatusCode statusCode)
         {
-            var json = context?.Result?.GetType()?.Name switch
-            {
-                nameof(OkResult) => JsonConvert.SerializeObject(Result.Ok()),
-                nameof(OkObjectResult) => JsonConvert.SerializeObject((context.Result as OkObjectResult).Value),
-                _ => JsonConvert.SerializeObject(Result.Fail($"Não há filtros de saída definidos para o tipoo {context.Result.GetType().Name}"))
-            } ?? JsonConvert.SerializeObject(Result.Fail("o contexto não tem resultados"));
+            Sucess = success;
+            ErrorMessage = errorMessage;
+            Data = data;
+            StatusCode = statusCode;
+        }
 
-            var data = JsonConvert.DeserializeObject<Response>(json);
-            context.Result = new OkObjectResult(data);
+        public static Result<T> Success(T data)
+        {
+            return new Result<T>(true, string.Empty, data, HttpStatusCode.OK);
+        }
 
-            await next();
+        public static Result<T> Failure(string errorMessage)
+        {
+            return new Result<T>(false, errorMessage, default, HttpStatusCode.OK);
         }
     }
 }

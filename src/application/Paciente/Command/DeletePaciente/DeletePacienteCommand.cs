@@ -1,11 +1,9 @@
-﻿using application.Common.Interfaces;
+﻿
+
+using application.Common.Interfaces;
 using application.Common.Models;
-using FluentResults;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,9 +29,11 @@ namespace application.Paciente.Command.DeletePaciente
             {
                 var result = await _uow.PacienteRepository.DeleteAsync(request.Id);
 
+                if (!result) return Result<Unit>.Failure("Paciente not found");
+
                 await _uow.Complete();
 
-                return result;
+                return Result<Unit>.Success(Unit.Value);
             }
         }
     }

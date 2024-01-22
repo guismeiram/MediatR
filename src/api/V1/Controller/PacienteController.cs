@@ -4,6 +4,7 @@ using application.Paciente.Command.CreatePaciente;
 using application.Paciente.Command.DeletePaciente;
 using application.Paciente.Command.UpdatePaciente;
 using application.Paciente.Queries.GetPaciente;
+using application.Paciente.Queries.GetPacienteList;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -33,15 +34,24 @@ namespace api.V1.Controller
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var product = await Mediator.Send(new DeletePacienteCommand.Command { Id = id });
+            var result = await Mediator.Send(new DeletePacienteCommand.Command { Id = id });
 
-            return HandleResult(product);
+            return HandleResult(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
             var result = await Mediator.Send(new GetPacienteQuery.Query { Id = id});
+
+
+            return HandleResult(result);
+        }
+
+        [HttpGet("list")]
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await Mediator.Send(new GetPacienteListQuery.Query());
 
             return HandleResult(result);
         }

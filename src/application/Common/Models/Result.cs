@@ -1,17 +1,14 @@
-﻿using FluentResults;
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-
-using Newtonsoft.Json;
+﻿using domain.Common;
+using System.Linq.Expressions;
+using System;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web.Http.Results;
-using OkResult = Microsoft.AspNetCore.Mvc.OkResult;
+using AutoMapper.Execution;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace application.Common.Models
 {
-    public class Result<T>
+    public class Result<T> 
     {
         public HttpStatusCode StatusCode { get; }
 
@@ -32,14 +29,16 @@ namespace application.Common.Models
             StatusCode = statusCode;
         }
 
+
         public static Result<T> Success(T data)
         {
-            return new Result<T>(true, string.Empty, data, HttpStatusCode.OK);
+
+            return new Result<T>(true, string.Empty, data, HttpStatusCode.Created); 
         }
 
         public static Result<T> Failure(string errorMessage)
         {
-            return new Result<T>(false, errorMessage, default, HttpStatusCode.OK);
+            return new Result<T>(false, errorMessage, default, HttpStatusCode.BadRequest);
         }
     }
 }

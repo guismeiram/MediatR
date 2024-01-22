@@ -33,6 +33,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {

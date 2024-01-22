@@ -10,13 +10,12 @@ namespace application.Common.Interfaces.Repository
 {
     public interface IRepository<T> where T : Entity
     {
-        Task<T> GetByIdAsync(Guid id);
-        Task<IEnumerable<T>> GetAllAsync();
         Task<T> AddAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task<bool> DeleteAsync(Guid id);
-        Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate);
+        Task<T> GetAsyncById(Guid id);
+        Task<IEnumerable<T>> GetAsyncList();
         IQueryable<T> AsQueryable(Expression<Func<T, bool>> predicate = null);
-
+        Task<T> GetAsync(Expression<Func<T, bool>> predicate);
     }
 }

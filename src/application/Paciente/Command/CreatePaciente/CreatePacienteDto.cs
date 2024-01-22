@@ -16,7 +16,7 @@ namespace application.Paciente.Command.CreatePaciente
         public string Nome { get; set; }
         public string Idade { get; set; }
         public string Rg { get; set; }
-        public Sexo Sexo { get; set; }
+        public int Sexo { get; set; }
 
         public void Mapping(Profile profile)
         {

@@ -1,6 +1,7 @@
 ﻿using application.Common.Interfaces;
 using application.Common.Models;
 using AutoMapper;
+using domain.Common;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,11 +10,10 @@ namespace application.Paciente.Command.UpdatePaciente
 {
     public class UpdatePacienteCommand
     {
-        public class Command : IRequest<Result<Unit>>
+        public class Command : IRequest<Result<Unit>> 
         {
             public UpdatePacienteDto Paciente { get; set; }
         }
-
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly IUnitOfWork _uow;
@@ -38,5 +38,6 @@ namespace application.Paciente.Command.UpdatePaciente
                 return Result<Unit>.Failure("Failed to update paciente");
             }
         }
+
     }
 }

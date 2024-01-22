@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace infra.Context
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -18,7 +18,7 @@ namespace infra.Context
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
-        public DbSet<Paciente> Pacientes { get; set; }
+        public DbSet<Paciente> Pacientes => Set<Paciente>();
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

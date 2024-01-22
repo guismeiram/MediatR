@@ -3,7 +3,7 @@ using application.Common.Models;
 using application.Paciente.Command.UpdatePaciente;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using FluentResults;
+using domain.Common;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,14 +20,12 @@ namespace application.Paciente.Queries.GetPaciente
         public class Query : IRequest<Result<PacienteDto>>
         {
             public Guid Id { get; set; }
-
         }
 
         public class Handler : IRequestHandler<Query, Result<PacienteDto>>
         {
-            private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
-
+            private readonly IUnitOfWork _uow;
             public Handler(IUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
@@ -36,12 +34,15 @@ namespace application.Paciente.Queries.GetPaciente
 
             public async Task<Result<PacienteDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var paciente = await _uow.PacienteRepository
-                    .AsQueryable(x => x.Id == request.Id)
-                    .ProjectTo<PacienteDto>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync();
 
-                return Result<PacienteDto>.Success(paciente);
+                var results = await _uow.PacienteRepository.GetAsyncById(request.Id);
+
+
+                //var results = await _uow.PacienteRepository.GetAsync(e => e.Id == request.Id);
+
+                
+
+                return Result<PacienteDto>.Success(_mapper.Map<PacienteDto>(results));
             }
         }
     }

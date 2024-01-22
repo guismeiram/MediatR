@@ -1,4 +1,5 @@
 ﻿using application.Common.Interfaces.Repository;
+using application.Paciente.Queries.GetPacienteList;
 using domain.Entities;
 using System;
 using System.Collections.Generic;

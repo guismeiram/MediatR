@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace domain.Enums
 {
-    public enum Sexo
+    public enum Sexo : int
     {
         Masculino = 1,
         Feminino = 2

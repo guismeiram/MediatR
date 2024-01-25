@@ -15,7 +15,6 @@ namespace application.Common.Interfaces.Repository
         Task<bool> DeleteAsync(Guid id);
         Task<T> GetAsyncById(Guid id);
         Task<IEnumerable<T>> GetAsyncList();
-        IQueryable<T> AsQueryable(Expression<Func<T, bool>> predicate = null);
-        Task<T> GetAsync(Expression<Func<T, bool>> predicate);
+       
     }
 }

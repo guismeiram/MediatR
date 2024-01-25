@@ -93,12 +93,6 @@ namespace infra.Repository.Base
             return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public IQueryable<T> AsQueryable(Expression<Func<T, bool>> predicate = null)
-            => predicate == null ? _dbContext.Set<T>().AsQueryable() : _dbContext.Set<T>().Where(predicate).AsQueryable();
-
-        public async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
-        {
-            return await _dbContext.Set<T>().AsNoTracking().Where(predicate).FirstOrDefaultAsync();
-        }
+   
     }
 }

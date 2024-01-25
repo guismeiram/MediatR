@@ -1,8 +1,4 @@
 
-# Mediator
-
-Este projeto tem a ideia de aprender similaridades sobre o padrão Mediator, implementando um código no padrão DDD. 
-
 
 ## Docum
 
@@ -24,7 +20,8 @@ Este projeto tem a ideia de aprender similaridades sobre o padrão Mediator, imp
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id`      | `Guid` | **Obrigatório**. O ID do item que você quer |
+| `id`      | `Guid` | 
+**Obrigatório**. O ID do item que você quer |
 
 #### Deleta Paciente
 
@@ -45,6 +42,10 @@ Este projeto tem a ideia de aprender similaridades sobre o padrão Mediator, imp
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `Guid` | **Obrigatório**. Pesquisa ID na lista e atualiza o item. |
+| `Nome`      | `string` | **Obrigatório**. Atualiza o Nome na lista. |
+| `Idade`      | `string` | **Obrigatório**. Atualiza a Idade na lista. |
+| `Rg`      | `string` | **Obrigatório**. Atualiza o Rg na lista.  |
+| `Sexo`      | `Enum` | **Obrigatório**. Atualiza a Sexo na lista. |
 
 
 #### Create Paciente
@@ -56,3 +57,7 @@ Este projeto tem a ideia de aprender similaridades sobre o padrão Mediator, imp
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `Guid` | **Obrigatório**. Cria um paciente. |
+| `Nome`      | `string` | **Obrigatório**. Cria o Nome na lista. |
+| `Idade`      | `string` | **Obrigatório**. Cria a Idade na lista. |
+| `Rg`      | `string` | **Obrigatório**. Cria o Rg na lista. |
+| `Sexo`      | `Enum` | **Obrigatório**. Atualiza a Sexo na lista. |

@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace application.Common.Models
 {
-    public class Result<T> 
+    public class Result<T>
     {
         public HttpStatusCode StatusCode { get; }
 
@@ -33,7 +33,7 @@ namespace application.Common.Models
         public static Result<T> Success(T data)
         {
 
-            return new Result<T>(true, string.Empty, data, HttpStatusCode.Created); 
+            return new Result<T>(true, string.Empty, data, HttpStatusCode.Created);
         }
 
         public static Result<T> Failure(string errorMessage)

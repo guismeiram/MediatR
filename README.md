@@ -1,5 +1,4 @@
 
-
 ## Docum
 
 #### Retorna todos os Pacientes
@@ -20,8 +19,7 @@
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id`      | `Guid` | 
-**Obrigatório**. O ID do item que você quer |
+| `id`      | `Guid` | **Obrigatório**. O ID do item que você quer |
 
 #### Deleta Paciente
 
